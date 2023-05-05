@@ -127,8 +127,8 @@
         methods:{
             save(){
                 console.log(this.student)
-                this.$http
-                     .post('/api/estudantes', this.student)
+                
+                     axios.post('/api/login', this.student)
                      .then(response => (
                          console.log(response)
                      ))

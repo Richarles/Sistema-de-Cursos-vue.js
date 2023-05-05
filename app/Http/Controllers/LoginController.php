@@ -1,10 +1,13 @@
 <?php
  
 namespace App\Http\Controllers;
- 
+
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
- 
+use Illuminate\Support\Facades\Hash;
+
 class LoginController extends Controller
 {
     /**
@@ -23,22 +26,31 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function authenticate(Request $request)
+    public function store(Request $request)
     {
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
- 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
- 
-            return redirect()->intended('eleitor/cadastro');
+        $data = [
+                'name' => $request->name,
+                'last_name' => $request->last_name,
+                'state' => $request->state,
+                'city' => $request->city,
+                'road' => $request->road,
+                'district' => $request->district,
+                'number' => $request->number,
+                'date_birth' => $request->date_birth,
+                'fone' => $request->fone,
+                'email' => $request->email,
+                'password' => Hash::make($request->password)
+            ];
+
+        if ($request->check == 'studant') {
+            $createRegister = Student::create($data);
         }
- 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+
+        if ($request->check == 'teacher') {
+            $createRegister = Teacher::create($data);
+        }
+
+        return response()->json($createRegister);
     }
 
         /**

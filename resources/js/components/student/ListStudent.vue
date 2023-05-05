@@ -9,39 +9,51 @@
                 <thead>
                     <tr class="table-secondary">
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Editar</th>
+                        <!-- <th scope="col">Detalhe</th> -->
+                        <th scope="col">Exclusão</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td >Mark</td>
-                        <td >Otto</td>
-                        <td >@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                    <tr v-for="student in students" :key="student.id">
+                        <th scope="row">{{ student.id }}</th>
+                        <td >{{ student.name }} {{ student.last_name }}</td>
+                        <td >{{ student.email }}</td>
+                        <td><router-link :to="{name: 'edit', params: { id: student.id }}" class="btn btn-success">Edit</router-link></td>
+                        <td><button class="btn btn-danger" @click="deleteStudent(student.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 </template>
-
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        data() {
+            return {
+                students: []
+            }
+        },
+        created() {
+            axios
+                .get('http://127.0.0.1:8000/api/estudantes')
+                .then(response => {
+                    console.log(response.data)
+                    this.students = response.data;
+                });
+        },
+        methods: {
+            deleteStudent(id) { 
+                axios
+                    .delete(`http://localhost:8000/api/estudantes/${id}`)
+                    .then(response => {
+                        console.log(response);
+                        let i = this.students.map(data => data.id).indexOf(id);
+                        this.students.splice(i, 1)
+                    });
+            }
+        },
     }
 </script>

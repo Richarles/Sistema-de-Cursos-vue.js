@@ -21,6 +21,16 @@ class Student extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Curse::class);
     }
 
+    protected $casts = [
+        //...
+        'is_students' => 'boolean',
+    ];
+
+    public function isStudents(): bool
+{
+    return $this->is_students;
+}
+
     // Rest omitted for brevity
 
     /**

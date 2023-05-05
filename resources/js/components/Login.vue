@@ -54,7 +54,7 @@
         },
         methods: {
             login(e){
-                let url = 'http://localhost:8000/api/login'
+                let url = 'api/authentification'
                 const payload = {
                     email : this.email,
                     password: this.password

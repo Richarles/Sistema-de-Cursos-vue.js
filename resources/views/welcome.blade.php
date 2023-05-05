@@ -22,6 +22,10 @@
     @vite(['resources/js/app.js'])
 </head>
 <body>
-    <div id="app"></div>
+    <App></App>
+    <div id="app">
+        {{-- <App></App> --}}
+        @yield('content')
+    </div>
 </body>
 </html>

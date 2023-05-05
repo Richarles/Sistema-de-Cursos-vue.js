@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -11,9 +12,13 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Teacher $teacher)
     {
-        //
+        //$this->authorize('update', $teacher);
+        $list = Student::get()->toArray();
+        
+        return array_reverse($list);
+        //return view('admin.ListStudent');
     }
 
     /**
@@ -29,46 +34,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         
-        //if ($request->check == 'studant') {
-            $createStudent=Student::create([
-                'name' => $request->name,
-                'last_name' => $request->last_name,
-                'state' => $request->state,
-                'city' => $request->city,
-                'road' => $request->road,
-                'district' => $request->district,
-                'number' => $request->number,
-                'date_birth' => $request->date_birth,
-                'fone' => $request->fone,
-                'email' => $request->email,
-                'password' => Hash::make($request->password)
-            ]);
-
-            // if($createStudent){
-            //     $credentials = $request->validate([
-            //         'email' => ['required', 'email'],
-            //         'password' => ['required'],
-            //     ]);
-        
-            //    if (Auth::attempt($credentials)) {
-            //         $request->session()->regenerate();
-        
-            //         return redirect()->intended('eleitor/cadastro');
-            //    }
-            // }
-        //}
-       // $createStudent = Student::created($request->all());
-        return response()->json($createStudent);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Student $student)
+    public function show($id)
     {
-        //
+        $showStudent = Student::find($id);
+
+        return response()->json($showStudent,200);
     }
 
     /**
@@ -82,16 +58,20 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, $id)
     {
-        //
+        $student = Student::find($id);
+        $student->update($request->all());
+        return response()->json('Student updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        $student->delete();
+        return response()->json('Student deleted!');
     }
 }

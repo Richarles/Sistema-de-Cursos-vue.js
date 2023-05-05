@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('fone');
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('is_students')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

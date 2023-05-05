@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
@@ -12,7 +14,9 @@ class TeacherController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::student()->isStudent()) {
+            return 'ff o kf dd l ';
+        }
     }
 
     /**
@@ -28,7 +32,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
