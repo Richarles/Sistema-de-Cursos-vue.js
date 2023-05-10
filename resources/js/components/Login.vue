@@ -76,9 +76,10 @@
                     .then(res => {
                         Cookie.set('_myapp_token',res.access_token)
                         console.log(res)
-                        //  if (data.token) {
-                        //      document.cookie = 'token='+data.token+';SameSite=Lax'
-                        //  }
+                          if (res.usuario.type == 1) {
+                              //document.cookie = 'token='+data.token+';SameSite=Lax'
+                              this.$router.push({ name: 'users' });
+                          }
                         //  e.target.submit()
                     })
                 

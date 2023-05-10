@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +28,7 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {//dd($request->all());
         $data = [
                 'name' => $request->name,
                 'last_name' => $request->last_name,
@@ -39,18 +40,19 @@ class LoginController extends Controller
                 'date_birth' => $request->date_birth,
                 'fone' => $request->fone,
                 'email' => $request->email,
-                'password' => Hash::make($request->password)
+                'password' => Hash::make($request->password),
+                'type' => $request->type
             ];
 
-        if ($request->check == 'studant') {
-            $createRegister = Student::create($data);
-        }
+        // if ($request->check == 'studant') {
+             $createUser = User::create($data);
+        // }
 
-        if ($request->check == 'teacher') {
-            $createRegister = Teacher::create($data);
-        }
+        // if ($request->check == 'teacher') {
+        //     $createRegister = Teacher::create($data);
+        // }
 
-        return response()->json($createRegister);
+        return response()->json($createUser);
     }
 
         /**

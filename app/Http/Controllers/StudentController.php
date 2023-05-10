@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -13,7 +14,7 @@ class StudentController extends Controller
      * Display a listing of the resource.
      */
     public function index(Teacher $teacher)
-    {
+    {//dd(Auth::user());
         //$this->authorize('update', $teacher);
         $list = Student::get()->toArray();
         

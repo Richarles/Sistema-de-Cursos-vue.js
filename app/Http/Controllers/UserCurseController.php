@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
-use App\Models\Teacher;
+use App\Models\User_Curse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class TeacherController extends Controller
+class UserCurseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $list = Teacher::get()->toArray();
-        
-        return array_reverse($list);
+        //
     }
 
     /**
@@ -32,23 +28,21 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        //
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(User_Curse $user_Curse)
     {
-        $showTeacher = Teacher::find($id);
-
-        return response()->json($showTeacher,200);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Teacher $teacher)
+    public function edit(User_Curse $user_Curse)
     {
         //
     }
@@ -56,7 +50,7 @@ class TeacherController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(Request $request, User_Curse $user_Curse)
     {
         //
     }
@@ -64,10 +58,8 @@ class TeacherController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(User_Curse $user_Curse)
     {
-        $teacher = Teacher::find($id);
-        $teacher->delete();
-        return response()->json('Teacher deleted!');
+        //
     }
 }

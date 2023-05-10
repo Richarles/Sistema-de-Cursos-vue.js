@@ -3,9 +3,9 @@
         <div class="container px-1 px-lg-1">
             <div class="row gx-4 gx-lg-5">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <h2 class="text-white mb-5">Formulário</h2>
+                    <h2 class="text-white mb-5">Editar de Usuários</h2>
                     <div class="card-body">
-                        <form @submit.prevent="save">
+                        <form @submit.prevent="updateUser">
                             <div class="row mb-3">
                                 <label for="name" class="col-md-4 col-form-label text-md-end">Nome</label>
                                 <div class="col-md-6">
@@ -16,12 +16,6 @@
                                 <label for="lastName" class="col-md-4 col-form-label text-md-end">Sobrenome</label>
                                 <div class="col-md-6">
                                     <input id="lastName" type="text" class="form-control" v-model="user.last_name" required autocomplete="lastName" autofocus>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="city" class="col-md-4 col-form-label text-md-end">Estado</label>
-                                <div class="col-md-6">
-                                    <input id="city" type="text" class="form-control" v-model="user.state" required autocomplete="city" autofocus>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -49,21 +43,6 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="date_birth" class="col-md-4 col-form-label text-md-end">Tipo de Usuário:</label>
-                                <div class="col-md-6">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model="user.type" id="inlineRadio1" value="1">
-                                        <label class="form-check-label" for="inlineCheckbox1">Aluno</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="inlineRadioOptions" v-model="user.type" id="inlineRadio1" value="2">
-                                        <label class="form-check-label" for="inlineCheckbox1">Professor</label>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="row mb-3">
                                 <label for="date_birth" class="col-md-4 col-form-label text-md-end">Data de Nasc.</label>
                                 <div class="col-md-6">
                                     <input id="date_birth" type="date" class="form-control" v-model="user.date_birth" required autocomplete="date_birth" autofocus>
@@ -78,7 +57,7 @@
                             <div class="row mb-3">
                                 <label for="email" class="col-md-4 col-form-label text-md-end">Email</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" v-model="user.email" required autocomplete="lastName" autofocus>
+                                    <input id="email" type="email" class="form-control" v-model="user.email" required autocomplete="email" autofocus>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -104,27 +83,30 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
-        data(){
-            return{
+        data() {
+            return {
                 user: {}
             }
         },
-        methods:{
-            save(){
-                console.log(this.student)
-                
-                     axios
-                     .post('/api/login', this.user)
-                     .then(response => (
-                         console.log(response)
-                     ))
-                     .catch(err => console.log(err))
-                     .finally(() => this.loading = false)
-
+        created() {
+            axios
+                .get(`http://localhost:8000/api/user/${this.$route.params.id}`)
+                .then((res) => {
+                    console.log(res);
+                    this.user = res.data;
+                });
+        },
+        methods: {
+            updateUser() {
+                axios
+                    .patch(`http://localhost:8000/api/user/${this.$route.params.id}`, this.user)
+                    .then((res) => {
+                        this.$router.push({ name: 'users' });
+                    });
             }
+        },
+        mounted() {
+            console.log('Component mounted.')
         }
     }
 </script>

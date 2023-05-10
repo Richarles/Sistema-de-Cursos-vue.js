@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,10 @@ use Illuminate\Support\Facades\Route;
 //     Route::apiResource('professor', StudentController::class);
 // })->middleware('auth');
 
-Route::resource('estudantes', StudentController::class);
-Route::apiResource('professores', TeacherController::class)->middleware('auth');
+// Route::resource('estudantes', StudentController::class);
+// Route::resource('professores', TeacherController::class);
 Route::resource('login', LoginController::class);
+Route::resource('user', UserController::class);
 Route::post('authentification', [AuthController::class, 'login']);
 //Route::resource('login', AuthController::class);
 //Route::post('/authetificacion', [AuthController::class, 'login']);

@@ -9,39 +9,51 @@
                 <thead>
                     <tr class="table-secondary">
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Editar</th>
+                        <!-- <th scope="col">Detalhe</th> -->
+                        <th scope="col">Exclusão</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td >Mark</td>
-                        <td >Otto</td>
-                        <td >@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                    <tr v-for="teacher in teachers" :key="teacher.id">
+                        <th scope="row">{{ teacher.id }}</th>
+                        <td >{{ teacher.name }} {{ teacher.last_name }}</td>
+                        <td >{{ teacher.email }}</td>
+                        <td><router-link :to="{name: 'editTeacher', params: { id: teacher.id }}" class="btn btn-success">Edit</router-link></td>
+                        <td><button class="btn btn-danger" @click="deleteTeacher(teacher.id)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 </template>
-
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
+        data() {
+            return {
+                teachers: []
+            }
+        },
+        created() {
+            axios
+                .get('http://127.0.0.1:8000/api/professores')
+                .then(response => {
+                    console.log(response.data)
+                    this.teachers = response.data;
+                });
+        },
+        methods: {
+             deleteTeacher(id) { 
+                 axios
+                     .delete(`http://localhost:8000/api/professores/${id}`)
+                     .then(response => {
+                         console.log(response);
+                         let i = this.teachers.map(data => data.id).indexOf(id);
+                         this.teachers.splice(i, 1)
+                     });
+             }
+        },
     }
 </script>
