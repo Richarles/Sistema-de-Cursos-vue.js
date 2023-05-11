@@ -3,23 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        if ($request->search) {
-            $list = User::where('type',$request->search)->get()->toArray();
-        }else{
-            $list = User::get()->toArray();
-        }
+        $userList = $this->userService->listUser($request);
         
-        return array_reverse($list);
+        return array_reverse($userList);
     }
 
     /**
@@ -61,23 +64,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $data = [
-            'name' => $request->name,
-            'last_name' => $request->last_name,
-            'state' => $request->state,
-            'city' => $request->city,
-            'road' => $request->road,
-            'district' => $request->district,
-            'number' => $request->number,
-            'date_birth' => $request->date_birth,
-            'fone' => $request->fone,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'type' => $request->type
-        ];
-
-        $user = User::find($id);
-        $user->update($data);
+        $this->userService->updateUser($request,$id);
 
         return response()->json('User updated!');
     }
@@ -87,8 +74,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
-        $user->delete();
+        $this->userService->deleteUser($id);
 
         return response()->json('User deleted!');
     }
