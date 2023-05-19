@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class UserCurseController extends Controller
 {
-    protected $userService;
-
-    public function __construct(UserService $userService)
-    {
-        $this->userService = $userService;
-    }
     /**
      * Display a listing of the resource.
      */
