@@ -1,59 +1,37 @@
 <template>
-    <section class="contact-section bg-red">
-        <div class="container px-4 px-lg-5">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Digite aqui o professor" aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
-            </div>
-            <table class="table table-success table-striped table-hover">
-                <thead>
-                    <tr class="table-secondary">
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Editar</th>
-                        <!-- <th scope="col">Detalhe</th> -->
-                        <th scope="col">Exclusão</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="teacher in teachers" :key="teacher.id">
-                        <th scope="row">{{ teacher.id }}</th>
-                        <td >{{ teacher.name }} {{ teacher.last_name }}</td>
-                        <td >{{ teacher.email }}</td>
-                        <td><router-link :to="{name: 'editTeacher', params: { id: teacher.id }}" class="btn btn-success">Edit</router-link></td>
-                        <td><button class="btn btn-danger" @click="deleteTeacher(teacher.id)">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
+<main class="container">
+    <div class="row mb-2">
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">World</strong>
+          <h3 class="mb-0">Featured post</h3>
+          <div class="mb-1 text-body-secondary">Nov 12</div>
+          <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="stretched-link">Continue reading</a>
         </div>
-    </section>
+        <div class="col-auto d-none d-lg-block">
+          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success">Design</strong>
+          <h3 class="mb-0">Post title</h3>
+          <div class="mb-1 text-body-secondary">Nov 11</div>
+          <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" class="stretched-link">Continue reading</a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 </template>
 <script>
-    export default {
-        data() {
-            return {
-                teachers: []
-            }
-        },
-        created() {
-            axios
-                .get('http://127.0.0.1:8000/api/professores')
-                .then(response => {
-                    console.log(response.data)
-                    this.teachers = response.data;
-                });
-        },
-        methods: {
-             deleteTeacher(id) { 
-                 axios
-                     .delete(`http://localhost:8000/api/professores/${id}`)
-                     .then(response => {
-                         console.log(response);
-                         let i = this.teachers.map(data => data.id).indexOf(id);
-                         this.teachers.splice(i, 1)
-                     });
-             }
-        },
-    }
+    
 </script>

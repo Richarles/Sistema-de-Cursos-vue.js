@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -15,11 +16,12 @@ class UserController extends Controller
     {
         $this->userService = $userService;
     }
+    
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
+    {dd(Auth::user());
         $userList = $this->userService->listUser($request);
         
         return array_reverse($userList);

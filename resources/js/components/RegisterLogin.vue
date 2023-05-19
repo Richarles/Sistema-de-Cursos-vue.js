@@ -117,7 +117,7 @@
                 console.log(this.student)
                 
                      axios
-                     .post('/api/login', this.user)
+                     .post('/api/register', this.user)
                      .then(response => (
                          console.log(response)
                      ))

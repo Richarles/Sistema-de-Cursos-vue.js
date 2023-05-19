@@ -89,5 +89,13 @@
              }
 
         },
+        mounted(){
+            axios
+                .get('http://127.0.0.1:8000/api/user')
+                .then(response => {
+                    console.log(response)
+                    this.users = response.data;
+                });
+        }
     }
 </script>

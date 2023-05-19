@@ -52,7 +52,18 @@ class LoginController extends Controller
         //     $createRegister = Teacher::create($data);
         // }
 
-        return response()->json($createUser);
+        $token = Auth::login($createUser);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User created successfully',
+            'user' => $createUser,
+            'authorisation' => [
+                'token' => $token,
+                'type' => 'bearer',
+            ]
+        ]);
+
+        //return response()->json($createUser);
     }
 
         /**

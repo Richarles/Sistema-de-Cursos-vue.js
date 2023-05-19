@@ -77,12 +77,14 @@
                         Cookie.set('_myapp_token',res.access_token)
                         console.log(res)
                           if (res.usuario.type == 1) {
-                              //document.cookie = 'token='+data.token+';SameSite=Lax'
                               this.$router.push({ name: 'users' });
+                          }
+
+                          if (res.usuario.type == 2) {
+                              this.$router.push({ name: 'addCurse' });
                           }
                         //  e.target.submit()
                     })
-                
             }
         }
     }

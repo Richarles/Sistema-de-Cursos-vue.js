@@ -1,4 +1,4 @@
-@extends('welcome')
+@extends( 'welcome' )
 @section('content')
-    <ListStudent></ListStudent>
+    <RegisterCurse></RegisterCurse>
 @endsection

@@ -177,6 +177,10 @@ p {
   margin-left: 20rem;
 }
 
+.btnAddCurse{
+  margin-top: 1000px;
+}
+
 abbr[title] {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;
