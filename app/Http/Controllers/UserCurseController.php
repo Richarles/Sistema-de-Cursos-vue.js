@@ -12,10 +12,10 @@ class UserCurseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        dd(Auth::user());
-        return response()->json(auth()->user());
+        dd(Auth::id());
+        return response()->json(Auth::user());
     }
 
     /**

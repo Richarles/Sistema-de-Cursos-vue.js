@@ -18,6 +18,33 @@ class UserService
         return $list;
     }
 
+    public function createUser($data){
+        $data = [
+            'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'state' => $data['state'],
+            'city' => $data['city'],
+            'road' => $data['road'],
+            'district' => $data['district'],
+            'number' => $data['number'],
+            'date_birth' => $data['date_birth'],
+            'fone' => $data['fone'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+            'type' => $data['type']
+        ];
+
+        $user = User::create($data);
+
+        return $user;
+    }
+
+    public function editUser($id){
+        $editUser = User::find($id);
+
+        return $editUser;
+    }
+
     public function updateUser($data,$id){
         $data = [
             'name' => $data['name'],

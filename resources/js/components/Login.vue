@@ -81,7 +81,7 @@
                           }
 
                           if (res.usuario.type == 2) {
-                              this.$router.push({ name: 'addCurse' });
+                              this.$router.push({ name: 'listTeacherCurses' });
                           }
                         //  e.target.submit()
                     })

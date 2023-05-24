@@ -9,21 +9,14 @@ class Curse extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','field','price','description'];
+    protected $fillable = ['name','field','price','description','user_id'];
 
     /**
-     * The students that belong to the curse.
+     * Get the teacher that owns the users.
      */
-    public function students()
-    {
-        return $this->belongsToMany(Student::class);
-    }
+     public function users()
+     {
+         return $this->belongsTo(User::class);
+     }
 
-    /**
-     * Get the teacher that owns the curse.
-     */
-    public function teachers()
-    {
-        return $this->belongsTo(Teacher::class);
-    }
 }

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('city');
             $table->string('road');
             $table->string('district');
-            $table->string('number');
-            $table->string('date_birth');
+            $table->integer('number');
+            $table->date('date_birth');
             $table->string('fone');
             $table->string('email')->unique();
             $table->string('password');

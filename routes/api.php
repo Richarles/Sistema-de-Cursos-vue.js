@@ -35,10 +35,10 @@ use Illuminate\Support\Facades\Route;
 // Route::resource('professores', TeacherController::class);
 //Route::resource('login', LoginController::class);
 Route::resource('user', UserController::class)->middleware('jwt.auth');
-Route::resource('user/curse', UserCurseController::class)->middleware('jwt.auth');
+Route::resource('usercurse', UserCurseController::class)->middleware('jwt.auth');
 Route::resource('curse', CurseController::class)->middleware('jwt.auth');
 Route::post('authentification', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'store']);
 //Route::post('/me', [AuthController::class, 'me'])->middleware('auth:sanctum');
 
 //Route::resource('login', AuthController::class);

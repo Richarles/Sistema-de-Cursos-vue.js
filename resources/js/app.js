@@ -16,7 +16,7 @@ import EditStudent from './components/student/EditStudent.vue';
 
 import RegisterTeacher from './components/teacher/RegisterTeacher.vue';
 import ListCurseTeacher from './components/teacher/ListCurseTeacher.vue';
-import editTeacher from './components/teacher/editTeacher.vue';
+import EditTeacherCurse from './components/teacher/EditTeacherCurse.vue';
 
 import RegisterCurse from './components/curse/RegisterCurse.vue';
 import ListCurse from './components/curse/ListCurse.vue';
@@ -90,7 +90,8 @@ const router = createRouter({
          ///{ name: 'students',path: '/api/estudantes', component: ListStudent },
          ///{ name:'edit',path: '/api/edit/:id', component: EditStudent },
          //{ path: '/api/professor/create', component: RegisterTeacher },
-         { name: 'teachersCurses', path: '/api/user/curse', component: ListCurseTeacher },
+         { name: 'listTeacherCurses', path: '/api/curse', component: ListCurseTeacher },
+         { name: 'editTeachersCurses', path: '/api/curse/:id', component: EditTeacherCurse },
          //{ name:'editTeacher',path: '/api/edit/:id', component: editTeacher },
          { name: 'addCurse', path: '/api/curso/add', component: RegisterCurse },
          //{ path: '/api/curso/create', component: RegisterCurse, beforeEnter:Guard.auth },

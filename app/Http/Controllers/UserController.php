@@ -21,7 +21,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {dd(Auth::user());
+    {
         $userList = $this->userService->listUser($request);
         
         return array_reverse($userList);
@@ -40,7 +40,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->userService->createUser($request);
+
+        return response()->json('User created!');
     }
 
     /**
@@ -48,9 +50,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $showUser = User::find($id);
+        $editUser = $this->userService->editUser($id);
 
-        return response()->json($showUser,200);
+        //return $editCurse;
+        //$showUser = User::find($id);
+
+        return response()->json($editUser,200);
     }
 
     /**

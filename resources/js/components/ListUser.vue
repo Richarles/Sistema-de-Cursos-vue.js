@@ -60,14 +60,7 @@
                       });
              },
              searchTypeUser(event){
-                console.log(event.target.value);
-                // axios({
-                //         method: "post",
-                //         url: "http://127.0.0.1:8000/api/user",
-                //         params: {
-                //             ID: event.target.value45
-                //         },
-                //     });
+                console.log(event.target.value)
 
                 axios
                  .get('http://127.0.0.1:8000/api/user',{
@@ -79,13 +72,6 @@
                      console.log(response.data)
                      this.users = response.data;
                  });
-
-                //  axios
-                //  .get(`http://127.0.0.1:8000/api/user/${event.target.value}`)
-                //  .then(response => {
-                //      console.log(response.data)
-                //      //this.users = response.data;
-                //  });
              }
 
         },

@@ -2,28 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Curse;
-use App\Models\User;
+use App\Services\CurseService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class CurseController extends Controller
 {
-    // public function __construct()
-    // {
-    //     $this->middleware('auth:api');
-    // }
-    
+    protected $curseService;
+
+    public function __construct(CurseService $curseService)
+    {
+        $this->curseService = $curseService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        dd(Auth::user());
-        return response()->json(auth()->user());
-        //return view('admin.ListStudent');
-        //return response()->json($dd);
+        $listCurse = $this->curseService->listCurse($request);
+
+        return $listCurse; 
     }
 
     /**
@@ -39,47 +36,46 @@ class CurseController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'name' => $request->name,
-            'price' => $request->price,
-            'description' => $request->description,
-            'field' =>$request->field
-        ];
+        $createCurse = $this->curseService->createCurse($request);
 
-        $createUser = Curse::create($data);
-
-        return response()->json($createUser);
+        return response()->json($createCurse);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Curse $curse)
+    public function show($id)
     {
-        //
+        $editCurse = $this->curseService->editCurse($id);
+
+        return $editCurse;
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Curse $curse)
+    public function edit($id)
     {
-        //
+        
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Curse $curse)
+    public function update(Request $request, $id)
     {
-        //
+        $this->curseService->updateCurse($request,$id);
+
+        return response()->json('Curse updated!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Curse $curse)
+    public function destroy($id)
     {
-        //
+        $this->curseService->deleteCurse($id);
+
+        return response()->json('Curse deleted!');
     }
 }
